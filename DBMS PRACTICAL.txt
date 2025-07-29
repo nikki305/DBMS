@@ -1,0 +1,256 @@
+Microsoft Windows [Version 10.0.26100.4652]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -h localhost -u root -p
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.42 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database BBANK;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use database;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use BBank;
+Database changed
+mysql> create table customerr(
+    -> cid INT primary key,
+    -> cname varchar(40),
+    -> caddress varchar(40),
+    -> ccontact_no varchar(10)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table accountt(
+    -> acc_no INT primary key,
+    -> cid int,
+    -> acc_type varchar(60),
+    -> foreign key (cid),
+    -> references customerr(cid)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+references customerr(cid)
+)' at line 5
+mysql> create table accountt(
+    -> acc_no INT primary key,
+    -> cid int,
+    -> acc_type varchar(60),
+    -> foreign key (cid)
+    -> references customerr(cid)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table transactionn(
+    -> transaction_id INT primary key,
+    -> acc_no INT,
+    -> transaction_date DATE,
+    -> amount DECIMAL(14,6),
+    -> FOREGIN KEY (acc_no) REFERENCES accountt(acc_no)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'KEY (acc_no) REFERENCES accountt(acc_no)
+)' at line 6
+mysql> create table transactionn(
+    -> transaction_id INT primary key,
+    -> acc_no INT,
+    -> transaction_date DATE,
+    -> amount DECIMAL(14,8),
+    -> FOREGIN key (acc_no) REFERENCES accountt (acc_no)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (acc_no) REFERENCES accountt (acc_no)
+)' at line 6
+mysql> create table transactionn(
+    -> transaction_id INT primary key,
+    -> acc_no INT,
+    -> transaction_date DATE,
+    -> amount DECIMAL(12,6),
+    -> FOREGIN KEY(acc_no) REFERENCES account(acc_no)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'KEY(acc_no) REFERENCES account(acc_no)
+)' at line 6
+mysql> create table transaction(
+    -> transaction_id INT primary key,
+    -> acc_no INT,
+    -> transaction_date DATE,
+    -> amount DECIMAL(12,4),
+    -> FOREIGN KEY(acc_no) REFERENCES account(acc_no)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'account'
+mysql> create table transaction(
+    -> transaction_id INT primary kry,
+    -> acc_no INT,
+    -> transaction_date DATE,
+    -> amount DECIMAL(12,3),
+    -> FOREIGN KEY (acc_no) REFERENCES accountt(acc_no)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'kry,
+acc_no INT,
+transaction_date DATE,
+amount DECIMAL(12,3),
+FOREIGN KEY (acc_n' at line 2
+mysql> create table transaction(
+    -> transaction
+    ->
+    ->
+    ->
+    -> hjhk
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hjhk
+)' at line 6
+mysql> create table transaction(
+    -> transaction_id INT primary key,
+    -> acc_no INT,
+    -> transaction_date DATE,
+    -> amount DECIMAL(12,3),
+    -> FOREIGN KEY (acc_no) REFERENCES account(acc_no)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'account'
+mysql> create table transaction(
+    -> transaction_id INT primary key,
+    -> acc_no INT,
+    -> transaction_date DATE,
+    -> amount DECIMAL(12,3),
+    -> FOREIGN KEY (acc_no) REFERENCES accountt(acc_no)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table employee(
+    -> employee_id INT primary key,
+    -> name VARCHAR(20),
+    -> salary DECIMAL(12,8),
+    -> role VARCHAR(48)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> ALTER TABLE customer
+    -> ADD email_id VARCHAR(30);
+ERROR 1146 (42S02): Table 'bbank.customer' doesn't exist
+mysql> ALTER TABLE customer
+    -> ADD email_id VARCHAR(20);
+ERROR 1146 (42S02): Table 'bbank.customer' doesn't exist
+mysql> ALTER TABLE customerr
+    -> ADD email_id VARCHAR(20);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create user 'nikita';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create user 'nikita'@'localhost'IDINTIFIED
+    -> BY 'nikita@1234';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IDINTIFIED
+BY 'nikita@1234'' at line 1
+mysql> create user 'nikita'@'localhost' IDENTIFIED
+    -> BY 'nikita@1234';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> GRANT SELECT ON Bank.customer To
+    -> 'nikita'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| batch1             |
+| bbank              |
+| home               |
+| hospital           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| srushti            |
+| student            |
+| sys                |
+| world              |
++--------------------+
+14 rows in set (0.01 sec)
+
+mysql> use bank;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_bank |
++----------------+
+| customer       |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> GRANT SELECT ON BBank.acountt To
+    -> 'nikita'@'localhost';
+ERROR 1146 (42S02): Table 'bbank.acountt' doesn't exist
+mysql> GRANT SELECT ON Bank.account To
+    -> 'nikita'@'localhost';
+ERROR 1146 (42S02): Table 'bank.account' doesn't exist
+mysql> GRANT SELECT ON BBANK.accountt To
+    -> 'nikita'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user 'manager'@'localhost'
+    -> IDENTIFIED BY 'manager@1234';
+ERROR 1396 (HY000): Operation CREATE USER failed for 'manager'@'localhost'
+mysql> create user 'maneger'@'localhost'
+    -> IDENTIFIED BY 'maneger@1234';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> GRANT ALL PRIVILEGES ON Bank.* To
+    -> 'maneger'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc customerr;
+ERROR 1146 (42S02): Table 'bank.customerr' doesn't exist
+mysql> desc customer;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| cutomerid | int         | NO   | PRI | NULL    |       |
+| name      | varchar(90) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc BBANK.Accountt;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| acc_no   | int         | NO   | PRI | NULL    |       |
+| cid      | int         | YES  | MUL | NULL    |       |
+| acc_type | varchar(60) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc employee;
+ERROR 1146 (42S02): Table 'bank.employee' doesn't exist
+mysql> desc BBANK.employee;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| employee_id | int           | NO   | PRI | NULL    |       |
+| name        | varchar(20)   | YES  |     | NULL    |       |
+| salary      | decimal(12,8) | YES  |     | NULL    |       |
+| role        | varchar(48)   | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc bbank.transaction;
++------------------+---------------+------+-----+---------+-------+
+| Field            | Type          | Null | Key | Default | Extra |
++------------------+---------------+------+-----+---------+-------+
+| transaction_id   | int           | NO   | PRI | NULL    |       |
+| acc_no           | int           | YES  | MUL | NULL    |       |
+| transaction_date | date          | YES  |     | NULL    |       |
+| amount           | decimal(12,3) | YES  |     | NULL    |       |
++------------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql>
